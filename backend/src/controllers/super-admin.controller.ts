@@ -1,7 +1,11 @@
 
 import type { Request, Response } from "express";
+
 import { createInitialSuperAdmin } from "../services/super-admin.service.js";
 
+// ==========================================
+// MEMBUAT SUPER ADMIN PERTAMA
+// ==========================================
 export const createSuperAdmin = async (
   req: Request,
   res: Response
@@ -10,11 +14,7 @@ export const createSuperAdmin = async (
     const { full_name, email, password, setup_key } = req.body;
 
     const user = await createInitialSuperAdmin(
-      {
-        full_name,
-        email,
-        password,
-      },
+      { full_name, email, password },
       setup_key
     );
 
@@ -46,4 +46,21 @@ export const createSuperAdmin = async (
       message,
     });
   }
+};
+
+// ==========================================
+// MELIHAT PROFIL SUPER ADMIN
+// ==========================================
+export const getSuperAdminProfile = async (
+  req: Request,
+  res: Response
+): Promise<void> => {
+  res.status(200).json({
+    success: true,
+    message: "Autentikasi Super Admin berhasil",
+    data: {
+      user_id: req.user?.id,
+      roles: req.user?.roles,
+    },
+  });
 };

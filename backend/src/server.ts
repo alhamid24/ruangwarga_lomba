@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { db } from "./config/database.js";
 import authRoutes from "./routes/auth.routes.js";
 import superAdminRoutes from "./routes/super-admin.routes.js";
+import officerRoutes from "./routes/officer.routes.js";
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/super-admin", superAdminRoutes);
+app.use("/api/super-admin/officers", officerRoutes);
 
 app.get("/", (_req, res) => {
   res.json({
